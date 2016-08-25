@@ -1,0 +1,40 @@
+version: '2'
+
+services:
+    code:
+        image: lkevin/xxx
+        volumes:
+            - "./config/code/parameters.yml:/var/www/symfony/app/config/parameters.yml"
+            - "./logs/code:/var/www/symfony/var/logs"
+
+    php:
+        image: dinamic/docker-alpine-php7
+        ports:
+            - "9000"
+        links:
+            - code
+        external_links:
+            - mysql
+        volumes_from:
+            - code
+        networks:
+            - mysql
+            - default
+
+    nginx:
+        image: lkevin/nginx
+        ports:
+            - 8000:80
+        links:
+            - php
+            - code
+        volumes:
+            - ./logs/nginx/:/var/log/nginx
+            - ./config/nginx/symfony.conf:/etc/nginx/conf.d/symfony.conf
+        volumes_from:
+            - code
+
+networks:
+    mysql:
+        external: true
+
