@@ -2,14 +2,14 @@ version: '2'
 
 services:
     code:
-        image: lkevin/xxx
+        image: eraac/xxx
         volumes:
             - "./config/code/parameters.yml:/var/www/symfony/app/config/parameters.yml"
             - "./logs/code:/var/www/symfony/var/logs"
 
     php:
         image: dinamic/docker-alpine-php7
-        ports:
+        expose:
             - "9000"
         links:
             - code
@@ -22,7 +22,7 @@ services:
             - default
 
     nginx:
-        image: lkevin/nginx
+        image: eraac/nginx
         ports:
             - 8000:80
         links:

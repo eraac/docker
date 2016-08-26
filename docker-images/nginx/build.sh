@@ -1,4 +1,4 @@
 #!/bin/sh
 
-docker build -t lkevin/nginx .
+docker build -t eraac/nginx .
 
