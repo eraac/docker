@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+    smtp:
+        image: djfarrelly/maildev
+        container_name: smtp
+        networks:
+            - fake-smtp
+
+networks:
+    fake-smtp:
+        external: true
+
