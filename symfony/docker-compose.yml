@@ -9,7 +9,7 @@ services:
 
     php:
         image: dinamic/docker-alpine-php7
-        ports:
+        expose:
             - "9000"
         links:
             - code
