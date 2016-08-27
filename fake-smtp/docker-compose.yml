@@ -4,10 +4,19 @@ services:
     smtp:
         image: djfarrelly/maildev
         container_name: smtp
+        environment:
+            - VIRTUAL_HOST=domain.tld
+            - VIRTUAL_NETWORK=reverse-proxy
+            - VIRTUAL_PORT=80
+            - LETSENCRYPT_HOST=domain.tld
+            - LETSENCRYPT_EMAIL=contact@domain.tld
         networks:
             - fake-smtp
+            - reverse-proxy
 
 networks:
     fake-smtp:
+        external: true
+    reverse-proxy:
         external: true
 
