@@ -4,7 +4,7 @@ services:
     code:
         image: eraac/xxx
         volumes:
-            - "./config/code/parameters.yml:/var/www/symfony/app/config/parameters.yml"
+            - "./config/code/parameters.yml:/var/www/symfony/app/config/parameters.yml:ro"
             - "./logs/code:/var/www/symfony/var/logs"
 
     php:
@@ -15,26 +15,38 @@ services:
             - code
         external_links:
             - mysql
+            - smtp
         volumes_from:
             - code
         networks:
+            - fake-smtp
             - mysql
             - default
 
     nginx:
         image: eraac/nginx
-        ports:
-            - 8000:80
+        environment:
+            - VIRTUAL_HOST=domain.tld
+            - VIRTUAL_NETWORK=reverse-proxy
+            - VIRTUAL_PORT=80
+            - LETSENCRYPT_HOST=domain.tld
+            - LETSENCRYPT_EMAIL=contact@domain.tld
         links:
             - php
             - code
         volumes:
-            - ./logs/nginx/:/var/log/nginx
-            - ./config/nginx/symfony.conf:/etc/nginx/conf.d/symfony.conf
+            - "./logs/nginx/:/var/log/nginx"
+            - "./config/nginx/symfony.conf:/etc/nginx/conf.d/symfony.conf:ro"
         volumes_from:
             - code
+        networks:
+            - reverse-proxy
+            - default
 
 networks:
     mysql:
         external: true
-
+    fake-smtp:
+        external: true
+    reverse-proxy:
+        external: true
