@@ -1,9 +1,9 @@
 version: '2'
 
 services:
-    smtp:
+    fake-smtp:
         image: djfarrelly/maildev
-        container_name: smtp
+        container_name: fake-smtp
         environment:
             - VIRTUAL_HOST=domain.tld
             - VIRTUAL_NETWORK=reverse-proxy
@@ -19,4 +19,3 @@ networks:
         external: true
     reverse-proxy:
         external: true
-

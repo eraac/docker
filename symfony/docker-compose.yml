@@ -15,7 +15,7 @@ services:
             - code
         external_links:
             - mysql
-            - smtp
+            - fake-smtp
         volumes_from:
             - code
         networks:
