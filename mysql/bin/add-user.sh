@@ -5,14 +5,19 @@
 mysql='mysql'
 # ===
 
-if [ -z "${1}"]; then
+if [ -z "${1}" ]; then
     echo "[ERROR] Not user given"
-    echo "usage: ${0} <username>"
+    echo "usage: ${0} <username> [host]"
     exit 1
 fi
 
-user=$1
+user=${1}
 host='%'
+
+if [ ! -z "${2}" ]; then
+    host=${2}
+fi
+
 password=`cat /dev/urandom | env LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1`
 
 docker exec ${mysql} sh -c "mysql -e 'CREATE USER '\''${user}'\''@'\''${host}'\'' IDENTIFIED BY '\''${password}'\'';'"
