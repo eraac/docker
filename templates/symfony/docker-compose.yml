@@ -22,6 +22,8 @@ services:
             - fake-smtp
             - mysql
             - default
+        labels:
+            - "traefik.enable=false"
 
     nginx:
         image: eraac/nginx
@@ -31,6 +33,12 @@ services:
             - VIRTUAL_PORT=80
             - LETSENCRYPT_HOST=domain.tld
             - LETSENCRYPT_EMAIL=contact@domain.tld
+        labels:
+            - "traefik.backend=app-name"
+            - "traefik.frontend.rule=Host:domain.tld"
+            - "traefik.port=80"
+            - "traefik.docker.network=reverse-proxy"
+            - "traefik.enable=true"
         links:
             - php
             - code

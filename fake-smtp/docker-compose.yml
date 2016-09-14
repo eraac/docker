@@ -4,12 +4,12 @@ services:
     fake-smtp:
         image: djfarrelly/maildev
         container_name: fake-smtp
-        environment:
-            - VIRTUAL_HOST=domain.tld
-            - VIRTUAL_NETWORK=reverse-proxy
-            - VIRTUAL_PORT=80
-            - LETSENCRYPT_HOST=domain.tld
-            - LETSENCRYPT_EMAIL=contact@domain.tld
+        labels:
+            - "traefik.backend=fake-smtp"
+            - "traefik.frontend.rule=Host:smtp.domain.tld"
+            - "traefik.port=80"
+            - "traefik.docker.network=reverse-proxy"
+            - "traefik.enable=true"
         networks:
             - fake-smtp
             - reverse-proxy

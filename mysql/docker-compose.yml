@@ -9,6 +9,8 @@ services:
         volumes:
             - ./data/mysql:/var/lib/mysql
             - ./config/mysql:/etc/mysql/conf.d:ro
+        labels:
+            - "traefik.enable=false"
         networks:
             - mysql
 
