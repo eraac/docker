@@ -4,7 +4,7 @@ services:
     traefik:
         image: traefik
         container_name: traefik
-        command: --web 
+        command: -c /traefik.toml
         ports:
             - "80:80"
             - "443:443"
@@ -12,9 +12,9 @@ services:
         volumes:
             - "/var/run/docker.sock:/var/run/docker.sock:ro"
             - "./config/traefik/traefik.toml:/traefik.toml:ro"
-            - "./config/traefik/rules.toml:/rules.toml:ro"
-            - "./config/traefik/letsencrypt.json:/letsencrypt.json"
-            - "./data/traefik/acme:/etc/traefik/acme"
+            - "./data/traefik/letsencrypt.json:/letsencrypt.json"
+            - "./logs/traefik/access.log:/access.log"
+            - "./logs/traefik/traefik.log:/traefik.log"
         networks:
             - reverse-proxy
 

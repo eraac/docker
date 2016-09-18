@@ -15,20 +15,20 @@
 #
 # Optional
 #
-# traefikLogsFile = "log/traefik.log"
+traefikLogsFile = "/traefik.log"
 
 # Access logs file
 #
 # Optional
 #
-# accessLogsFile = "log/access.log"
+accessLogsFile = "/access.log"
 
 # Log level
 #
 # Optional
 # Default: "ERROR"
 #
-# logLevel = "ERROR"
+logLevel = "DEBUG"
 
 # Backends throttle duration: minimum duration between 2 events from providers
 # before applying a new configuration. It avoids unnecessary reloads if multiples events
@@ -60,9 +60,8 @@
 # Optional
 # Default: ["http"]
 #
- defaultEntryPoints = ["http", "https"]
+defaultEntryPoints = ["http", "https"]
 
-# Sample entrypoint configuration when using ACME
 [entryPoints]
   [entryPoints.http]
   address = ":80"
@@ -71,7 +70,6 @@
   [entryPoints.https]
   address = ":443"
     [entryPoints.https.tls]
-
 
 # Enable ACME (Let's Encrypt): automatic SSL
 #
@@ -105,7 +103,7 @@ entryPoint = "https"
 #
 # Optional
 #
-onDemand = false
+onDemand = true
 
 # Enable certificate generation on frontends Host rules. This will request a certificate from Let's Encrypt for each frontend with a Host rule.
 # For example, a rule Host:test1.traefik.io,test2.traefik.io will request a certificate with main domain test1.traefik.io and SAN test2.traefik.io.
@@ -163,7 +161,7 @@ caServer = "https://acme-staging.api.letsencrypt.org/directory"
 #       [[entryPoints.https.tls.certificates]]
 #       CertFile = "integration/fixtures/https/snitest.org.cert"
 #       KeyFile = "integration/fixtures/https/snitest.org.key"
-#
+
 # To redirect an entrypoint rewriting the URL:
 # [entryPoints]
 #   [entryPoints.http]
@@ -212,13 +210,13 @@ caServer = "https://acme-staging.api.letsencrypt.org/directory"
 #
 # Optional
 #
-# [web]
+[web]
 
 # Web administration port
 #
 # Required
 #
-# address = ":8080"
+address = ":8080"
 
 # SSL certificate and key used
 #
@@ -241,7 +239,7 @@ caServer = "https://acme-staging.api.letsencrypt.org/directory"
 #
 # Optional
 #
-[file]
+# [file]
 
 # Rules file
 # If defined, traefik will load rules from this file,
@@ -249,13 +247,13 @@ caServer = "https://acme-staging.api.letsencrypt.org/directory"
 #
 # Optional
 #
-filename = "rules.toml"
+# filename = "rules.toml"
 
 # Enable watch file changes
 #
 # Optional
 #
-watch = true
+# watch = true
 
 
 ################################################################
@@ -279,13 +277,13 @@ endpoint = "unix:///var/run/docker.sock"
 #
 # Required
 #
-domain = "labesse.fr"
+domain = "domain.tld"
 
 # Enable watch docker changes
 #
 # Optional
 #
-# watch = true
+watch = true
 
 # Override default configuration template. For advanced users :)
 #
@@ -298,7 +296,7 @@ domain = "labesse.fr"
 # Optional
 # Default: true
 #
-ExposedByDefault = false # not implemented yet
+# exposedbydefault = true
 
 # Enable docker TLS connection
 #
@@ -309,4 +307,45 @@ ExposedByDefault = false # not implemented yet
 #  cert = "/etc/ssl/docker.crt"
 #  key = "/etc/ssl/docker.key"
 #  insecureskipverify = true
+
+
+################################################################
+# Sample rules
+################################################################
+# [backends]
+#   [backends.backend1]
+#     [backends.backend1.circuitbreaker]
+#       expression = "NetworkErrorRatio() > 0.5"
+#     [backends.backend1.servers.server1]
+#     url = "http://172.17.0.2:80"
+#     weight = 10
+#     [backends.backend1.servers.server2]
+#     url = "http://172.17.0.3:80"
+#     weight = 1
+#   [backends.backend2]
+#     [backends.backend2.LoadBalancer]
+#       method = "drr"
+#     [backends.backend2.servers.server1]
+#     url = "http://172.17.0.4:80"
+#     weight = 1
+#     [backends.backend2.servers.server2]
+#     url = "http://172.17.0.5:80"
+#     weight = 2
+#
+# [frontends]
+#   [frontends.frontend1]
+#   backend = "backend2"
+#     [frontends.frontend1.routes.test_1]
+#     rule = "Host: test.localhost, other.localhost"
+#   [frontends.frontend2]
+#   backend = "backend1"
+#   passHostHeader = true
+#   entrypoints = ["https"] # overrides defaultEntryPoints
+#     [frontends.frontend2.routes.test_1]
+#     rule = "Host:{subdomain:[a-z]+}.localhost"
+#   [frontends.frontend3]
+#   entrypoints = ["http", "https"] # overrides defaultEntryPoints
+#   backend = "backend2"
+#     rule = "Path: /test, /other"
+
 
