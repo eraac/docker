@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+    smtp:
+        image: namshi/smtp
+        container_name: smtp
+        labels:
+            - "traefik.enable=false"
+        networks:
+            - smtp
+
+networks:
+    smtp:
+        external: true
+
