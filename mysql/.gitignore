@@ -1,2 +1,4 @@
 !data/mysql/.gitkeep
 data/mysql/*
+!backup/.gitkeep
+backup/*
