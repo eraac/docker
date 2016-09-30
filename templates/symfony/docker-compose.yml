@@ -27,12 +27,6 @@ services:
 
     nginx:
         image: eraac/nginx
-        environment:
-            - VIRTUAL_HOST=domain.tld
-            - VIRTUAL_NETWORK=reverse-proxy
-            - VIRTUAL_PORT=80
-            - LETSENCRYPT_HOST=domain.tld
-            - LETSENCRYPT_EMAIL=contact@domain.tld
         labels:
             - "traefik.backend=app-name"
             - "traefik.frontend.rule=Host:domain.tld"
