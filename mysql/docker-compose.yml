@@ -15,6 +15,6 @@ services:
             - mysql
 
 networks:
-  mysql:
-    external: true
+    mysql:
+        external: true
 
