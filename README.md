@@ -1,4 +1,5 @@
 # TODO
 
-- créer image php7 (optimisé prod)
+- ajouter xdebug sur eraac/php:7-dev
 - ajouter de la documentation
+
