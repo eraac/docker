@@ -8,7 +8,7 @@ services:
             - "./logs/code:/var/www/symfony/var/logs"
 
     php:
-        image: eraac/php:7-symfony-dev # php:7-symfony also available
+        image: eraac/php:7 # php:7-dev also available
         expose:
             - "9000"
         links:
