@@ -4,8 +4,8 @@ services:
     code:
         image: eraac/xxx
         volumes:
-            - "./config/code/parameters.yml:/var/www/symfony/app/config/parameters.yml:ro"
-            - "./logs/code:/var/www/symfony/var/logs"
+            - "./config/code/parameters.yml:/var/www/app/config/parameters.yml:ro"
+            - "./logs/code:/var/www/var/logs"
 
     php:
         image: eraac/php:7 # php:7-dev also available
