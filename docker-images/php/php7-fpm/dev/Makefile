@@ -6,4 +6,3 @@ clean:
 
 push:
 	docker push eraac/php:7-dev
-
