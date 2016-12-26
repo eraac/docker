@@ -218,6 +218,9 @@ caServer = "https://acme-staging.api.letsencrypt.org/directory"
 #
 address = ":8080"
 
+# [web.auth.basic]
+#  users = ["user:password"]
+
 # SSL certificate and key used
 #
 # Optional
