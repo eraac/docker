@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+    tipboard:
+        image: farfeduc/docker-tipboard
+        labels:
+            - "traefik.backend=dashboard"
+            - "traefik.frontend.rule=Host:dashboard.domain.tld"
+            - "traefik.docker.network=reverse-proxy"
+            - "traefik.enable=true"
+        volumes:
+            - "./config/tipboard:/root/.tipboard"
+        networks:
+            - reverse-proxy
+
+networks:
+    reverse-proxy:
+        external: true
+
