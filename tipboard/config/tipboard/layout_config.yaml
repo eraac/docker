@@ -1,0 +1,23 @@
+details:
+    page_title: Empty Dashboard
+layout:
+    - row_2_of_2:
+        - col_1_of_4:
+            - tile_template: empty
+              tile_id: id_0
+              title: Empty
+              classes:
+
+        - col_1_of_4:
+            - tile_template: empty
+              tile_id: id_1
+              title: Empty
+              classes:
+
+        - col_2_of_4:
+            - tile_template: empty
+              tile_id: id_2
+              title: empty
+              classes:
+
+
