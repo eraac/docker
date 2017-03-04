@@ -4,17 +4,14 @@ services:
     glances:
         image: nicolargo/glances
         container_name: glances
-        labels:
-            - "traefik.backend=glances"
-            - "traefik.frontend.rule=Host:domain.tld"
-            - "traefik.port=61208"
-            - "traefik.docker.network=reverse-proxy"
-            - "traefik.enable=true"
+        ports:
+            - "61209:61209"
         volumes:
             - "/var/run/docker.sock:/var/run/docker.sock:ro"
+            - "./config/glances/glances.pwd:/root/.config/glances/glances.pwd"
         pid: "host"
         environment:
-            - "GLANCES_OPT=-w"
+            - "GLANCES_OPT=-s"
         networks:
             - reverse-proxy
 
