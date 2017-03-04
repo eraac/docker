@@ -12,10 +12,4 @@ services:
         pid: "host"
         environment:
             - "GLANCES_OPT=-s"
-        networks:
-            - reverse-proxy
-
-networks:
-    reverse-proxy:
-        external: true
 
