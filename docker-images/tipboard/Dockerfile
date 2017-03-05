@@ -4,9 +4,9 @@ USER root
 
 RUN mkdir /root/logs
 
-COPY tipboard /root/clipboard
+COPY tipboard /root/tipboard
 
-RUN sh -c "cd /root/clipboard && pip install ."
+RUN sh -c "cd /root/tipboard && pip install ."
 
 EXPOSE 7272
 
