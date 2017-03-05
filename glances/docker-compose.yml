@@ -2,7 +2,7 @@ version: '2'
 
 services:
     glances:
-        image: nicolargo/glances
+        image: nicolargo/glances:stable
         container_name: glances
         ports:
             - "61209:61209"
