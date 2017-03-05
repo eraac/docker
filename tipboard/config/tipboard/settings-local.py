@@ -9,3 +9,4 @@ from __future__ import unicode_literals
 PROJECT_NAME = '<YOUR PROJECT NAME>'
 API_KEY = '<YOUR API KEY>'
 
+REDIS_HOST = 'redis'
