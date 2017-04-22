@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+    influxdb:
+        image: influxdb:alpine
+        container_name: influxdb
+        volumes:
+            - "./config/influxdb/influxdb.conf:/etc/influxdb/influxdb.conf:ro"
+            - "./config/influxdb/ssl:/etc/ssl:ro"
+            - "./data/influxdb:/var/lib/influxdb"
+        ports:
+            - "8086:8086"
+        networks:
+            - influxdb
+
+networks:
+    influxdb:
+        external: true
+
