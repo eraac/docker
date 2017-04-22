@@ -3,7 +3,6 @@
 ## Get started
 
 - Create network for influxdb (see `bin/create-network.sh`)
-- Change default username/password in `config/influxdb/influxdb.conf`
 - Generate your server certificate (see `bin/generate-server-certificate.sh`)
 - Create an admin user for influxdb
 - For each client generate a client certificate (see `bin/generate-client-certificate.sh`)
