@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+    grafana:
+        image: grafana/grafana
+        container_name: grafana
+        volumes:
+            - "./data/grafana:/var/lib/grafana"
+            - "./config/grafana/custom.ini:/etc/grafana/custom.ini"
+        labels:
+            - "traefik.backend=grafana"
+            - "traefik.frontend.rule=Host:grafana.domain.tld"
+            - "traefik.port=3000"
+            - "traefik.docker.network=reverse-proxy"
+            - "traefik.enable=true"
+        networks:
+            - reverse-proxy
+
+networks:
+    reverse-proxy:
+        external: true
+
