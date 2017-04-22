@@ -6,7 +6,7 @@ services:
         container_name: grafana
         volumes:
             - "./data/grafana:/var/lib/grafana"
-            - "./config/grafana/custom.ini:/etc/grafana/custom.ini"
+            - "./config/grafana/grafana.ini:/etc/grafana/grafana.ini"
         labels:
             - "traefik.backend=grafana"
             - "traefik.frontend.rule=Host:grafana.domain.tld"

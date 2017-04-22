@@ -1,6 +1,8 @@
-# Influxdb
+# Grafana
 
 ## Get started
 
-- Change username/password in `config/grafana/custom.ini`
+username: `admin`
+
+password: `changeme`
 
