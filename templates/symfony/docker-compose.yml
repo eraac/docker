@@ -4,11 +4,11 @@ services:
     code:
         image: eraac/xxx
         volumes:
-            - "./config/code/parameters.yml:/var/www/app/config/parameters.yml:ro"
             - "./logs/code:/var/www/var/logs"
 
     php:
         image: eraac/php:7
+        env_file: "./config/code/env"
         expose:
             - "9000"
         links:

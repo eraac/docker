@@ -4,7 +4,7 @@ dirname="$(dirname "$0")/.."
 
 # == CONFIG ==
 project_name="xxx"
-fileenv="${dirname}/current_env"
+fileenv="${dirname}/config/current_env"
 # ====
 
 cd ${dirname}
