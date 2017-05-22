@@ -1,16 +1,35 @@
 #!/bin/sh
 
+dirname="$(dirname "$0")/.."
+
 # == CONFIG ==
-ifttt_enable=false
-ifttt_event='xxx'
-ifttt_key='xxx'
+project_name="xxx"
+fileenv="${dirname}/current_env"
 # ====
 
-cd "$(dirname "$0")/.."
+cd ${dirname}
 
-docker-compose pull
-docker-compose up -d
+function current_env() {
+    echo `cat ${fileenv}`
+}
 
-if [ "$ifttt_enable" = true ] ; then
-	curl --silent -X POST https://maker.ifttt.com/trigger/${ifttt_event}/with/key/${ifttt_key} > /dev/null
-fi
+function next_env() {
+    if [ ${1} = "green" ]; then
+        echo "blue"
+    else
+        echo "green"
+    fi
+}
+
+function write_env() {
+    echo ${1} > $fileenv 
+}
+
+docker-compose pull code
+cenv=$(current_env)
+nenv=$(next_env ${cenv})
+write_env ${nenv}
+
+docker-compose --project-name ${project_name}_${nenv} up -d 
+docker-compose --project-name ${project_name}_${cenv} down
+
