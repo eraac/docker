@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+    vault:
+        image: vault:0.8.1
+        container_name: vault
+        volumes:
+            - "./data/vault/file:/vault/file"
+            - "./logs/vault/vault.log:/vault/logs"
+            - "./config/vault:/vault/config"
+        labels:
+            - "traefik.backend=vault"
+            - "traefik.frontend.rule=Host:vault.domain.tld"
+            - "traefik.port=8200"
+            - "traefik.docker.network=reverse-proxy"
+            - "traefik.enable=true"
+        cap_add:
+            - IPC_LOCK
+        command: vault server -config=/vault/config/
+        networks:
+            - reverse-proxy
+
+networks:
+    reverse-proxy:
+        external: true
+
