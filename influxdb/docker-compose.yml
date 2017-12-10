@@ -4,16 +4,21 @@ services:
     influxdb:
         image: influxdb:alpine
         container_name: influxdb
+        labels:
+            - "traefik.backend=influxdb"
+            - "traefik.frontend.rule=Host:influx.domain.tld"
+            - "traefik.port=8086"
+            - "traefik.docker.network=reverse-proxy"
+            - "traefik.enable=true"
         volumes:
             - "./config/influxdb/influxdb.conf:/etc/influxdb/influxdb.conf:ro"
-            - "./config/influxdb/ssl:/etc/ssl:ro"
             - "./data/influxdb:/var/lib/influxdb"
         ports:
             - "8086:8086"
         networks:
-            - influxdb
+            - reverse-proxy
 
 networks:
-    influxdb:
+    reverse-proxy:
         external: true
 
