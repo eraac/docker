@@ -1,0 +1,10 @@
+FROM scratch
+
+ADD ca-certificates.crt /etc/ssl/certs/
+COPY zoneinfo.zip /usr/local/go/lib/time/zoneinfo.zip
+
+COPY ./libs/ld-linux-x86-64.so.2 /lib64/ld-linux-x86-64.so.2
+COPY ./libs/libc.so.6 /lib/x86_64-linux-gnu/libc.so.6
+COPY ./libs/libpthread.so.0 /lib/x86_64-linux-gnu/libpthread.so.0
+COPY ./libs/libdl.so.2 /lib/x86_64-linux-gnu/libdl.so.2
+
