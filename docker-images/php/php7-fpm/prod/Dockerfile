@@ -1,4 +1,4 @@
-FROM php:7-fpm-alpine
+FROM php:7.2-fpm-alpine
 
 MAINTAINER Kévin Labesse <kevin@labesse.me>
 
@@ -8,6 +8,7 @@ RUN set -x && \
     apk --update add \
       zlib-dev \
       icu \
+      bzip2-dev \
       icu-libs \
       icu-dev \
     && docker-php-ext-configure intl \
