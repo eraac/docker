@@ -24,9 +24,6 @@ if [ $? != 0 ]; then
     exit 2
 fi
 
-
-echo ${container}-${directory}-${archive}
-
 docker cp ${container}:/tmp/${directory}.tar.gz ${archive}
 
 realpath --relative-to=$(pwd) ${archive}
